@@ -1,11 +1,8 @@
-(defn gcd [args]
-	(do
-	(println args)
-	(if (= (max args) (min args))
-		(do (println "got it") (println (max args))
-		(max args))
-		(gcd (map 
-			#(if (= % (min args))
-				%
-				(- % (min args)))
-			args)))))
+(fn lcm [& args]
+	(letfn [(gcd [& rest]
+		(let [smallest (apply min rest) largest (apply max rest)]
+			(if (= smallest largest)
+				(do (println "largest:" largest)
+				largest)
+				(apply gcd (map #(if (= % smallest) % (- % smallest)) rest)))))]
+	(reduce (fn [x y] (/ (* x y) (gcd x y))) args)))
