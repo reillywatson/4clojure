@@ -1,0 +1,1 @@
+#(map (fn [x] (Character/digit x 10)) (Integer/toString (* % %2)))
